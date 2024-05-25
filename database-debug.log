@@ -1,0 +1,9 @@
+08:31:21.194 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+08:31:21.444 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+08:31:26.824 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - questive-e0224-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 210ms, init: 0ms
+08:31:26.917 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace questive-e0224-default-rtdb status Active to Active
+08:31:32.046 [FirebaseWorkerPool-1-3] WARN com.firebase.core.persistence.backend.dummy.EmulatorMetadataPersistence - Multiple projectIds are not recommended in single project mode. Requested 
+namespace questive-e0224, but the emulator is configured for questive-e0224-default-rtdb. To 
+opt-out of single project mode add/set the singleProjectMode: false property in 
+the firebase.json emulators config. 
+08:31:32.055 [NamespaceSystem-akka.actor.default-dispatcher-8] INFO com.firebase.core.namespace.NamespaceActor - questive-e0224 successfully activated FBKV (SurveyIdle(0)) wait: 2ms, init: 0ms
