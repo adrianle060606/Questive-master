@@ -1,5 +1,6 @@
 import { collection, query, where, getDocs, addDoc, doc, updateDoc, orderBy, deleteField, deleteDoc } from 'firebase/firestore';
 import { db } from './index';
+import { questionIDExt1, questionIDExt2 } from "./App";
 
 function ordinalSuffixOf(i) {
     var j = i % 10, k = i % 100;

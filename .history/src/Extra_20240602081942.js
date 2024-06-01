@@ -1,5 +1,6 @@
 import { collection, query, where, getDocs, addDoc, doc, updateDoc, orderBy, deleteField, deleteDoc } from 'firebase/firestore';
 import { db } from './index';
+import { questionIDExt1, questionIDExt2 } from "./App";
 
 function ordinalSuffixOf(i) {
     var j = i % 10, k = i % 100;
@@ -128,7 +129,7 @@ async function deleteDuplicateAccounts(name, course) {
 }
 
 
-async function updateRanks(questionID) {
+async function updateRanks() {
     const userQuery = query(collection(db, 'users'));
     const userSnapshot = await getDocs(userQuery);
     let users = userSnapshot.docs.map((doc) => ({
@@ -144,7 +145,7 @@ async function updateRanks(questionID) {
         users[i].Ext1ranks = [];
     }
 
-    for (let i = 1; i <= questionID; i++) {
+    for (let i = 1; i <= questionIDExt2; i++) {
         const questionQuery = query(collection(db, `Question${i}`), orderBy('time'));
         const questionSnapshot = await getDocs(questionQuery);
         const ranks = questionSnapshot.docs.map((doc) => ({
@@ -166,6 +167,33 @@ async function updateRanks(questionID) {
                     newRanks[newRanks.length - 1] = j + 1;
                     const docRef = doc(db, 'users', users[k].id);
                     await updateDoc(docRef, { ranks: newRanks });
+                }
+            }
+        }
+    }
+
+    for (let i = 1; i < questionIDExt1; i++) {
+        const questionQuery = query(collection(db, `Ext1Question${i}`), orderBy('time'));
+        const questionSnapshot = await getDocs(questionQuery);
+        const ranks = questionSnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data()
+        })).filter(item => item.correct === true);
+
+        for (let j = 0; j < users.length; j++) {
+            let newRanks = users[j].Ext1ranks;
+            newRanks.push(0);
+            const docRef = doc(db, 'users', users[j].id);
+            await updateDoc(docRef, { Ext1ranks: newRanks });
+        }
+
+        for (let j = 0; j < ranks.length; j++) {
+            for (let k = 0; k < users.length; k++) {
+                if (ranks[j].user === users[k].name) {
+                    let newRanks = users[k].Ext1ranks;
+                    newRanks[newRanks.length - 1] = j + 1;
+                    const docRef = doc(db, 'users', users[k].id);
+                    await updateDoc(docRef, { Ext1ranks: newRanks });
                 }
             }
         }

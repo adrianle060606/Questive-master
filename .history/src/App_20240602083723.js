@@ -43,33 +43,29 @@ function App() {
   const [course, setCourse] = useState(() => {
     return localStorage.getItem('course') || 'Ext2';
   });
-
-  const [questionID, setQuestionID] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const now = new Date();
-      let target = new Date(now);
-      
-      target.setHours(18, 30, 0, 0);
-      if (now > target) {
-        target.setDate(target.getDate() + 1);
-      }
-      now.setFullYear(2024, 5, 2);
-      const timeLeft = target - now;
-      const daysLeft = Math.floor(timeLeft/24/1000/60/60);
-
-      setQuestionID(daysLeft);
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+  
+  const [questionID, setQuestionID] = useState(() => {
+    const now = new Date();
+    let target = new Date(now);
+    
+    target.setHours(18, 30, 0, 0);
+    if (now > target) {
+      target.setDate(target.getDate() + 1);
+    }
+    now.setFullYear(2024, 6, 2);
+    const timeLeft = target - now;
+    const daysLeft = timeLeft/1000/60/60;
+    setQuestionIDExt2(daysLeft)
+  });
 
   const [questivians, setQuestivians] = useState(0);
   const [accountInfo, setAccountInfo] = useState(null);
 
   const toggleCourse = () => {
-
+    const newCourse = (course === "Ext1") ? "Ext2" : "Ext1";
+    setCourse(newCourse);
+    localStorage.setItem('course', newCourse);
+    setQuestionID(newCourse === "Ext1" ? questionIDExt1 : questionIDExt2);
   }
 
   const toggleTheme = () => {
@@ -176,7 +172,7 @@ function App() {
             <Route path="/points" element={<Points />} />
             <Route path="/messages" element={<Messages questionID={questionID} course={course} />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/admin" element={<Admin questionID={questionID} accountInfo={accountInfo}  />} />
+            <Route path="/admin" element={<Admin accountInfo={accountInfo}  />} />
             <Route path="/archive" element={<Archive course = {course}/>} />
             <Route path="/comp/:roomId" element={<Comp accountInfo={dummyAccountInfo} />} />
             <Route path="/game/:roomId" element={<Game />} />
@@ -213,7 +209,7 @@ function App() {
                       <Route path="/points" element={<Points />} />
                       <Route path="/messages" element={<Messages questionID={questionID} course={course}/>} />
                       <Route path="/shop" element={<Shop />} />
-                      <Route path="/admin" element={<Admin accountInfo={accountInfo} questionID={questionID} />} />
+                      <Route path="/admin" element={<Admin accountInfo={accountInfo} />} />
                       <Route path="/archive" element={<Archive course = {course}/>} />
                       <Route path="/comp/:roomId" element={<Comp accountInfo={accountInfo} />} />
                       <Route path="/game/:roomId" element={<Game />} />

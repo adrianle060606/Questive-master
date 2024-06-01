@@ -8,10 +8,6 @@ const CountdownTimer = () => {
     let target = new Date(now);
     target.setHours(18, 30, 0, 0);
 
-    if (now > target) {
-      target.setDate(target.getDate() + 1);
-    }
-
     const timeLeft = target - now;
 
     return timeLeft;

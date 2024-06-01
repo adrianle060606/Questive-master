@@ -55,9 +55,9 @@ function App() {
       if (now > target) {
         target.setDate(target.getDate() + 1);
       }
-      now.setFullYear(2024, 5, 2);
+      now.setFullYear(2024, 6, 2);
       const timeLeft = target - now;
-      const daysLeft = Math.floor(timeLeft/24/1000/60/60);
+      const daysLeft = timeLeft/1000/60/60;
 
       setQuestionID(daysLeft);
     }, 1000);
