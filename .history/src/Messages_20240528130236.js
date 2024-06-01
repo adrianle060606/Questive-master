@@ -1,0 +1,12 @@
+import React from 'react';
+
+const Messages = () => (
+  <div>
+    <div className = "about">
+        <p>Coming Soon...</p>
+        <p> If you have any ideas about what can be in the shop tell me about it!</p>
+    </div>
+  </div>
+);
+
+export default Messages;
