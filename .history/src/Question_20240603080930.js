@@ -101,8 +101,8 @@ const Question = ({accountInfo, questionID, course}) => {
       if (!snapshot.empty) {
         const data = snapshot.docs[0].data();
         if(course === "Ext2") {
-          setAnswered(data.lastQuestionAnswered==questionID);
-          setMessaged(data.lastQuestionMessaged==questionID);
+          setAnswered(data.answered);
+          setMessaged(data.messaged);
         }
         else {
           setAnswered(data.Ext1answered);
@@ -140,7 +140,7 @@ const Question = ({accountInfo, questionID, course}) => {
       const docRef = doc(db, 'users', docId);
       if(course === "Ext2") {
         await updateDoc(docRef, {
-          lastQuestionMessaged: questionID,
+          messaged: true,
         });
       }
       else {
@@ -192,7 +192,7 @@ const Question = ({accountInfo, questionID, course}) => {
         const docRef = doc(db, 'users', docId);
         if(course === "Ext2") {
           await updateDoc(docRef, {
-            lastQuestionAnswered: questionID,
+            answered: true,
           });
         }
         else {

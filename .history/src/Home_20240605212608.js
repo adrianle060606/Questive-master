@@ -44,8 +44,8 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
 
 
   const handleSubmitChat = async () => {
-    const message = document.getElementById('message-input').value.trim();
-    if (message != "") {
+    const message = document.getElementById('message-input').value;
+    if (message.trim() != "") {
       document.getElementById('message-input').value = "";
       if (accountInfo.account.name.split(' ')[0] != "Hongyi") {
         try {

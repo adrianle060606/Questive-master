@@ -33,6 +33,7 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
       }));
       setChatData(newData)
     });
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
     return () => unsubscribe();
 
@@ -43,22 +44,20 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
 
 
 
-  const handleSubmitChat = async () => {
-    const message = document.getElementById('message-input').value.trim();
-    if (message != "") {
-      document.getElementById('message-input').value = "";
-      if (accountInfo.account.name.split(' ')[0] != "Hongyi") {
-        try {
-          await addDoc(collection(db, `chatRoom`), {
-            name: accountInfo.account.name.split(' ')[0],
-            content: message,
-            time: Date.now()
-          });
-        } catch (error) {
-          console.error('Error writing document: ', error);
-        }
+  const handleSubmitChat = async (event) => {
+    event.preventDefault();
+    const message = document.getElementById('message-input').value;
+    document.getElementById('message-input').value = "";
+    if (accountInfo.account.name.split(' ')[0] != "Hongyi") {
+      try {
+        await addDoc(collection(db, `chatRoom`), {
+          name: accountInfo.account.name.split(' ')[0],
+          content: message,
+          time: Date.now()
+        });
+      } catch (error) {
+        console.error('Error writing document: ', error);
       }
-      scrollToBottomChat();
     }
   };
 
@@ -74,13 +73,6 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
       text = `${Math.floor((Date.now()-chatDate)/(1000*60*60*24))} days ago`;
     }
     return text;
-  }
-
-  const scrollToBottomChat = () => {
-    document.getElementById('chat-messages').scrollTo({
-      top: 9999999999,
-      behavior: "smooth",
-    });
   }
 
 
@@ -117,9 +109,9 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
                 <h2>Chat</h2>
             </div>
             <div class="chat-messages" id="chat-messages">
-              <div id = "chat-content" class="chat-content">
+              <div id = "chat-content" class="chat-content" onLoad={alert("hi")}>
                   {chatData.map((item) => (
-                    <div class="message user-message" onLoad={scrollToBottomChat()}>
+                    <div class="message user-message">
                       <span class="chat-sender">{item.name}:  </span>
                       <span class="chat-time"> ({convertChatDate(parseInt(item.time))}) </span>
                       <span class="chat-message html">{item.content}</span>
@@ -128,8 +120,8 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
               </div>
             </div>
             <div class="chat-input">
-                <input autocomplete="off" type="text" id="message-input" onKeyDown={(e) => {e.key === 'Enter' ? handleSubmitChat() : console.log()}} placeholder="Type a message..." />
-                <button id="send-button" onClick={() => handleSubmitChat()}>Send</button>
+                <input type="text" id="message-input" placeholder="Type a message..." />
+                <button id="send-button" onClick={(event) => handleSubmitChat(event)}>Send</button>
             </div>
     </div> 
 

@@ -117,18 +117,13 @@ async function deleteDuplicateAccounts(name, course) {
 
     var uniqueUsers = [];
     for (let i = 0; i < users.length; i++) {
-        const docRef = doc(db, 'users', users[i].id);
-        await updateDoc(docRef, {
-            lastQuestionMessaged: 3
-        });
-
-        /*console.log(uniqueUsers);
+        console.log(uniqueUsers);
         if (uniqueUsers.includes(users[i].email)) {
             const docRef = doc(db, 'users', users[i].id);
             await deleteDoc(docRef);
         } else {
             uniqueUsers.push(users[i].email)
-        }*/
+        }
     }
 }
 

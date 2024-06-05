@@ -25,8 +25,7 @@ const questionIDExt1 = 0;
 
 /*
   ideas:
-  show who is online
-  update quote automatically
+  automate questions
   shop
   messages
   streaks
@@ -53,7 +52,7 @@ function App() {
       let target = new Date(now);
 
       
-      target.setHours(18, 30, 0, 0);
+      target.setHours(16, 13, 0, 0);
 
       if (now > target) {
         target.setDate(target.getDate() + 1);
@@ -136,8 +135,7 @@ function App() {
         time: Date.now(),
         lastTime: Date.now(),
         points: 0,
-        lastQuestionAnswered: 0,
-        lastQuestionMessaged: 0
+        answered: false
       });
       docId = docRef.id;
     }

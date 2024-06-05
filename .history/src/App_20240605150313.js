@@ -25,8 +25,7 @@ const questionIDExt1 = 0;
 
 /*
   ideas:
-  show who is online
-  update quote automatically
+  automate questions
   shop
   messages
   streaks
@@ -64,6 +63,7 @@ function App() {
       const timeLeft = target - initialDate;
       const daysPastStart = Math.floor(timeLeft/24/1000/60/60);
       setQuestionID(daysPastStart);
+      setQuestionID(3);
     }, 1000);
 
     return () => clearInterval(timer);
@@ -136,8 +136,7 @@ function App() {
         time: Date.now(),
         lastTime: Date.now(),
         points: 0,
-        lastQuestionAnswered: 0,
-        lastQuestionMessaged: 0
+        answered: false
       });
       docId = docRef.id;
     }

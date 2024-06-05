@@ -25,8 +25,7 @@ const questionIDExt1 = 0;
 
 /*
   ideas:
-  show who is online
-  update quote automatically
+  automate questions
   shop
   messages
   streaks

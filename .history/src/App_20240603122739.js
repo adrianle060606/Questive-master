@@ -25,8 +25,7 @@ const questionIDExt1 = 0;
 
 /*
   ideas:
-  show who is online
-  update quote automatically
+  automate questions
   shop
   messages
   streaks
@@ -58,11 +57,11 @@ function App() {
       if (now > target) {
         target.setDate(target.getDate() + 1);
       }
-      const initialDate = new Date();
-      initialDate.setFullYear(2024, 5, 2);
-      initialDate.setHours(0,0,0,0)
-      const timeLeft = target - initialDate;
+      now.setFullYear(2024, 5, 2);
+      now.setHours(0,0,0,0)
+      const timeLeft = target - now;
       const daysPastStart = Math.floor(timeLeft/24/1000/60/60);
+      console.log(daysPastStart);
       setQuestionID(daysPastStart);
     }, 1000);
 
@@ -104,8 +103,6 @@ function App() {
           count++;
         }
       });
-
-
   
       setQuestivians(count);
     }, 60 * 1000);
@@ -136,8 +133,7 @@ function App() {
         time: Date.now(),
         lastTime: Date.now(),
         points: 0,
-        lastQuestionAnswered: 0,
-        lastQuestionMessaged: 0
+        answered: false
       });
       docId = docRef.id;
     }

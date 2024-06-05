@@ -44,21 +44,18 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
 
 
   const handleSubmitChat = async () => {
-    const message = document.getElementById('message-input').value.trim();
-    if (message != "") {
-      document.getElementById('message-input').value = "";
-      if (accountInfo.account.name.split(' ')[0] != "Hongyi") {
-        try {
-          await addDoc(collection(db, `chatRoom`), {
-            name: accountInfo.account.name.split(' ')[0],
-            content: message,
-            time: Date.now()
-          });
-        } catch (error) {
-          console.error('Error writing document: ', error);
-        }
+    const message = document.getElementById('message-input').value;
+    document.getElementById('message-input').value = "";
+    if (accountInfo.account.name.split(' ')[0] != "Hongyi") {
+      try {
+        await addDoc(collection(db, `chatRoom`), {
+          name: accountInfo.account.name.split(' ')[0],
+          content: message,
+          time: Date.now()
+        });
+      } catch (error) {
+        console.error('Error writing document: ', error);
       }
-      scrollToBottomChat();
     }
   };
 

@@ -119,7 +119,7 @@ async function deleteDuplicateAccounts(name, course) {
     for (let i = 0; i < users.length; i++) {
         const docRef = doc(db, 'users', users[i].id);
         await updateDoc(docRef, {
-            lastQuestionMessaged: 3
+            lastQuestionAnswered: 4
         });
 
         /*console.log(uniqueUsers);

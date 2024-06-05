@@ -33,6 +33,7 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
       }));
       setChatData(newData)
     });
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
     return () => unsubscribe();
 
@@ -43,22 +44,20 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
 
 
 
-  const handleSubmitChat = async () => {
-    const message = document.getElementById('message-input').value.trim();
-    if (message != "") {
-      document.getElementById('message-input').value = "";
-      if (accountInfo.account.name.split(' ')[0] != "Hongyi") {
-        try {
-          await addDoc(collection(db, `chatRoom`), {
-            name: accountInfo.account.name.split(' ')[0],
-            content: message,
-            time: Date.now()
-          });
-        } catch (error) {
-          console.error('Error writing document: ', error);
-        }
+  const handleSubmitChat = async (event) => {
+    event.preventDefault();
+    const message = document.getElementById('message-input').value;
+    document.getElementById('message-input').value = "";
+    if (accountInfo.account.name.split(' ')[0] != "Hongyi") {
+      try {
+        await addDoc(collection(db, `chatRoom`), {
+          name: accountInfo.account.name.split(' ')[0],
+          content: message,
+          time: Date.now()
+        });
+      } catch (error) {
+        console.error('Error writing document: ', error);
       }
-      scrollToBottomChat();
     }
   };
 
@@ -76,17 +75,10 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
     return text;
   }
 
-  const scrollToBottomChat = () => {
-    document.getElementById('chat-messages').scrollTo({
-      top: 9999999999,
-      behavior: "smooth",
-    });
-  }
-
 
 
   return <div>
-    <h4 id = "questivians">There {questivians == 1 ? "is" : "are"} {questivians == 0 ? "no other" : `${ (( (new Date()).getHours()) == 18) ? questivians+5 : questivians } fellow`} {questivians == 1 ? "Questivian" : "Questivians"} online. {questivians == 0 ? "It is just you." : ""}</h4>
+    <h4 id = "questivians">There {questivians == 1 ? "is" : "are"} {questivians == 0 ? "no other" : `${questivians} fellow`} {questivians == 1 ? "Questivian" : "Questivians"} online. {questivians == 0 ? "It is just you." : ""}</h4>
     <br/>
     
     <Question accountInfo={accountInfo} questionID={questionID} course={course} />
@@ -119,7 +111,7 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
             <div class="chat-messages" id="chat-messages">
               <div id = "chat-content" class="chat-content">
                   {chatData.map((item) => (
-                    <div class="message user-message" onLoad={scrollToBottomChat()}>
+                    <div class="message user-message">
                       <span class="chat-sender">{item.name}:  </span>
                       <span class="chat-time"> ({convertChatDate(parseInt(item.time))}) </span>
                       <span class="chat-message html">{item.content}</span>
@@ -128,8 +120,8 @@ const Home = ({ accountInfo, questionID, course, questivians}) => {
               </div>
             </div>
             <div class="chat-input">
-                <input autocomplete="off" type="text" id="message-input" onKeyDown={(e) => {e.key === 'Enter' ? handleSubmitChat() : console.log()}} placeholder="Type a message..." />
-                <button id="send-button" onClick={() => handleSubmitChat()}>Send</button>
+                <input type="text" id="message-input" placeholder="Type a message..." />
+                <button id="send-button" onClick={(event) => handleSubmitChat(event)}>Send</button>
             </div>
     </div> 
 

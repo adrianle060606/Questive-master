@@ -56,7 +56,7 @@ const Header = ({ theme, accountInfo, course }) => {
       <div className="banner" title="Do you want your message here? Be the first to get the daily question and from there the world is your oyster!">
         {course === "Ext1" ? 
         <span></span> :
-        <span>"This question gives off a "It's raining today. I have a dog. Find the mass of the sun" kind of vibe ..." - Arny</span>
+        <span>"Too Easy My G" - Arjun</span>
         }
       </div>
 
