@@ -179,7 +179,7 @@ function App() {
         <Router>
           <Header theme={theme} accountInfo={dummyAccountInfo} course = {course} />
           <Routes>
-            <Route path="/home" element={<Home accountInfo={dummyAccountInfo} questionID={questionID} course={course} questivians = {questivians} questivianNames = {questivianNames}/>} />
+            <Route path="/home" element={<Home accountInfo={dummyAccountInfo} questionID={questionID} course={course} questivians = {questivians}/>} />
             <Route path="/comp" element={<Comp accountInfo={dummyAccountInfo} />} />
             <Route path="/qa" element={<QA />} />
             <Route path="/about" element={<About />} />
@@ -216,7 +216,7 @@ function App() {
                   <Router>
                     <Header theme={theme} accountInfo={accountInfo} course = {course} />
                     <Routes>
-                      <Route path="/home" element={<Home accountInfo={accountInfo} questionID={questionID} course={course} questivians = {questivians} questivianNames = {questivianNames}/>} />
+                      <Route path="/home" element={<Home accountInfo={accountInfo} questionID={questionID} course={course} questivians = {questivians}/>} />
                       <Route path="/comp" element={<Comp accountInfo={accountInfo}/>} />
                       <Route path="/qa" element={<QA />} />
                       <Route path="/about" element={<About />} />

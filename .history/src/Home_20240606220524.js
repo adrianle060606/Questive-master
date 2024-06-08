@@ -87,8 +87,8 @@ const Home = ({ accountInfo, questionID, course, questivians, questivianNames}) 
 
 
   return <div>
-    <h4 onclick={() => {document.getElementById("onlineUsernames").hidden = !document.getElementById("onlineUsernames").hidden}} id = "questivians">There {questivians == 1 ? "is" : "are"} {questivians == 0 ? "no other" : `${ (( (new Date()).getHours()) == 18) ? questivians+5 : questivians } fellow`} {questivians == 1 ? "Questivian" : "Questivians"} online. {questivians == 0 ? "It is just you." : ""}</h4>
-    <h4 id="onlineUsernames" hidden="true">{questivianNames.map((item) => (<span>{item}, </span>))}</h4>
+    <h4 id = "questivians">There {questivians == 1 ? "is" : "are"} {questivians == 0 ? "no other" : `${ (( (new Date()).getHours()) == 18) ? questivians+5 : questivians } fellow`} {questivians == 1 ? "Questivian" : "Questivians"} online. {questivians == 0 ? "It is just you." : ""}</h4>
+    <h4>{questivianNames.map((item) => (<span>{item}</span>))}</h4>
     <br/>
     
     <Question accountInfo={accountInfo} questionID={questionID} course={course} />
@@ -120,14 +120,13 @@ const Home = ({ accountInfo, questionID, course, questivians, questivianNames}) 
             </div>
             <div class="chat-messages" id="chat-messages">
               <div id = "chat-content" class="chat-content">
-                  {chatData.map((item,index) => (
-                    <div class="message user-message" onLoad={index == chatData.length-1 ? scrollToBottomChat() : console.log()}>
+                  {chatData.map((item) => (
+                    <div class="message user-message" onLoad={scrollToBottomChat()}>
                       <span class="chat-sender">{item.name}:  </span>
                       <span class="chat-time"> ({convertChatDate(parseInt(item.time))}) </span>
                       <span class="chat-message html">{item.content}</span>
                     </div>
                   ))}
-                  <div id = "chat-loader"></div>
               </div>
             </div>
             <div class="chat-input">

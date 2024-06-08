@@ -70,7 +70,6 @@ function App() {
   }, []);
 
   const [questivians, setQuestivians] = useState(0);
-  const [questivianNames, setQuestivianNames] = useState([]);
   const [accountInfo, setAccountInfo] = useState(null);
 
   const toggleCourse = () => {
@@ -155,18 +154,15 @@ function App() {
     const userQuery = query(collection(db, 'users'));
     const userSnapshot = await getDocs(userQuery);
     let count = 0;
-    let usernamesOnline = []
 
     userSnapshot.forEach((doc) => {
       const userData = doc.data();
       if (userData.email != email && userData.lastActive >= Date.now() - 10 * 60 * 1000) {
         count++;
-        usernamesOnline.push(userData.name);
       }
     });
 
     setQuestivians(count);
-    setQuestivianNames(usernamesOnline);
 
     return docId;
   };
@@ -179,7 +175,7 @@ function App() {
         <Router>
           <Header theme={theme} accountInfo={dummyAccountInfo} course = {course} />
           <Routes>
-            <Route path="/home" element={<Home accountInfo={dummyAccountInfo} questionID={questionID} course={course} questivians = {questivians} questivianNames = {questivianNames}/>} />
+            <Route path="/home" element={<Home accountInfo={dummyAccountInfo} questionID={questionID} course={course} questivians = {questivians}/>} />
             <Route path="/comp" element={<Comp accountInfo={dummyAccountInfo} />} />
             <Route path="/qa" element={<QA />} />
             <Route path="/about" element={<About />} />
@@ -216,7 +212,7 @@ function App() {
                   <Router>
                     <Header theme={theme} accountInfo={accountInfo} course = {course} />
                     <Routes>
-                      <Route path="/home" element={<Home accountInfo={accountInfo} questionID={questionID} course={course} questivians = {questivians} questivianNames = {questivianNames}/>} />
+                      <Route path="/home" element={<Home accountInfo={accountInfo} questionID={questionID} course={course} questivians = {questivians}/>} />
                       <Route path="/comp" element={<Comp accountInfo={accountInfo}/>} />
                       <Route path="/qa" element={<QA />} />
                       <Route path="/about" element={<About />} />

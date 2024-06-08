@@ -120,14 +120,14 @@ const Home = ({ accountInfo, questionID, course, questivians, questivianNames}) 
             </div>
             <div class="chat-messages" id="chat-messages">
               <div id = "chat-content" class="chat-content">
-                  {chatData.map((item,index) => (
-                    <div class="message user-message" onLoad={index == chatData.length-1 ? scrollToBottomChat() : console.log()}>
+                  {chatData.map((item) => (
+                    <div class="message user-message" >
                       <span class="chat-sender">{item.name}:  </span>
                       <span class="chat-time"> ({convertChatDate(parseInt(item.time))}) </span>
                       <span class="chat-message html">{item.content}</span>
                     </div>
                   ))}
-                  <div id = "chat-loader"></div>
+                  <div id = "chat-loader" onLoad={scrollToBottomChat()}></div>
               </div>
             </div>
             <div class="chat-input">

@@ -56,7 +56,7 @@ const Header = ({ theme, accountInfo, course }) => {
       <div className="banner" title="Do you want your message here? Be the first to get the daily question and from there the world is your oyster!">
         {course === "Ext1" ? 
         <span></span> :
-        <span>"Now I am become maths, the solver of Questive" - Arny</span>
+        <span>"What the skibidi sigma rizz tax is this integral anyways?" - Broden</span>
         }
       </div>
 
